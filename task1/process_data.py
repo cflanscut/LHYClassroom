@@ -32,6 +32,8 @@ for i in range(len(x)):
     for j in range(len(x[0])):
         if x_std[j] != 0:
             x[i][j] = (x[i][j] - x_mean[j]) / x_std[j]
+np.save('x_mean.npy', x_mean)
+np.save('x_std.npy', x_std)
 
 # seperate data
 x_training_data = x[:math.floor(len(x) * 0.8), :]
