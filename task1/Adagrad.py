@@ -2,6 +2,10 @@ import numpy as np
 
 
 def Adagrad(x, y):
+    """
+    :param x:训练样本
+    :param y:训练标签
+    """
     try:
         dim = len(x[0]) + 1
         w = np.zeros([dim, 1], dtype=float)
