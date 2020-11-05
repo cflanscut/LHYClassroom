@@ -43,8 +43,6 @@ x_test, _, _ = normalise(x_test,
                          specified_column=None,
                          x_mean=x_mean,
                          x_std=x_std)
-np.save('x_mean.npy', x_mean)
-np.save('x_std.npy', x_std)
 with open('./task2/train_normalised.csv', mode='w', newline='') as file:
     file_writer = csv.writer(file)
     for i in x_train:
