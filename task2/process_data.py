@@ -1,5 +1,6 @@
 import numpy as np
 import math
+import csv
 
 with open('./task2/X_test', 'r') as f:
     next(f)
@@ -37,8 +38,18 @@ def train_data_split(x, y, split_ratio=0.25):
 
 
 x_train, x_mean, x_std = normalise(x_train, is_training_data=True)
-x_test = normalise(x_test,
-                   is_training_data=False,
-                   specified_column=None,
-                   x_mean=x_mean,
-                   x_std=x_std)
+x_test, _, _ = normalise(x_test,
+                         is_training_data=False,
+                         specified_column=None,
+                         x_mean=x_mean,
+                         x_std=x_std)
+np.save('x_mean.npy', x_mean)
+np.save('x_std.npy', x_std)
+with open('./task2/train_normalised.csv', mode='w', newline='') as file:
+    file_writer = csv.writer(file)
+    for i in x_train:
+        file_writer.writerow(i)
+with open('./task2/test_normalised.csv', mode='w', newline='') as file:
+    file_writer = csv.writer(file)
+    for i in x_test:
+        file_writer.writerow(i)

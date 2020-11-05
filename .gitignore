@@ -1,3 +1,4 @@
 .vscode
 *.ipynb
 *.npy
+/task2/*.csv
