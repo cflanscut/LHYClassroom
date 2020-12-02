@@ -29,8 +29,9 @@ def accurancy(y_predicition, y_label):
 
 
 def crossentropy_loss(y_predicition, y_label):
-    crossentropy = -np.dot(y_label.transpose(), np.log(y_predicition)) - np.dot(
-        (1 - y_label).transpose(), np.log(1 - y_predicition))
+    crossentropy = -np.dot(
+        y_label.transpose(), np.log(y_predicition)) - np.dot(
+            (1 - y_label).transpose(), np.log(1 - y_predicition))
     return crossentropy
 
 
