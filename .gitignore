@@ -2,3 +2,6 @@
 *.ipynb
 *.npy
 /task2/*.csv
+task3/food-11.zip
+*.jpg
+*.pth
