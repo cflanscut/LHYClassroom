@@ -11,7 +11,7 @@ import numpy as np
 import cv2
 import torch
 import torchvision.transforms as transforms
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import Dataset
 
 
 def readfile(path, label_needed=False):
@@ -39,15 +39,6 @@ def readfile(path, label_needed=False):
     else:
         return x
 
-
-workspace_dir = './task3/food-11'
-print("Reading data")
-train_x, train_y = readfile(os.path.join(workspace_dir, 'training'), True)
-print("Size of training data={}".format(len(train_x)))
-val_x, val_y = readfile(os.path.join(workspace_dir, 'validation'), True)
-print("Size of validation data={}".format(len(val_x)))
-test_x = readfile(os.path.join(workspace_dir, 'testing'))
-print("Size of testing data={}".format(len(test_x)))
 
 train_transform = transforms.Compose([
     transforms.ToPILImage(),
@@ -81,15 +72,3 @@ class ImgDataset(Dataset):
             return X, Y
         else:
             return X
-
-
-batch_size = 128
-train_set = ImgDataset(train_x, train_y, train_transform)
-val_set = ImgDataset(val_x, val_y, test_transform)
-train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True)
-val_loader = DataLoader(val_set, batch_size=batch_size, shuffle=False)
-
-torch.save(train_set, './task3/train_set.pth')
-torch.save(val_set, './task3/val_set.pth')
-torch.save(train_loader, './task3/train_loader.pth')
-torch.save(val_loader, './task3/val_loader.pth')
