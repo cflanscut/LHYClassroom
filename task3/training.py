@@ -27,7 +27,7 @@ from torch.utils.data import DataLoader
 import sys
 sys.path.append(r'./task3')
 
-torch.cuda.set_device(2)
+torch.cuda.set_device(0)
 
 # 读取数据
 workspace_dir = './task3/food-11'
@@ -64,7 +64,7 @@ for epoch in range(num_epoch):
     val_acc = 0.0
     val_loss = 0.0
 
-    model.train()  # 这个是干嘛？设置为训练模式，在dropout和batchNorm才生效，与eval对应
+    model.train()  # 这个是干嘛？设置为训练模式，在有dropout和batchNorm才生效，与eval对应
     for i, data in enumerate(train_loader):
         optimizer.zero_grad()
         train_pred = model(data[0].cuda())
@@ -94,6 +94,11 @@ for epoch in range(num_epoch):
                 np.argmax(val_pred.cpu().data.numpy(), axis=1) ==
                 data[1].numpy())
             val_loss += batch_loss.item()
+        print(
+            '[%03d/%03d] %2.2f s TA: %3.6f Ls: %3.6f | VA: %3.6f loss: %3.6f' %
+            (epoch + 1, num_epoch, time.time() - epoch_start_time,
+             train_acc / train_set.__len__(), train_loss / train_set.__len__(),
+             val_acc / val_set.__len__(), val_loss / val_set.__len__()))
 
 # 接下来用全部数据进行训练
 model_best = Classifier().cuda()  # 初始化model
@@ -137,6 +142,10 @@ for epoch in range(num_epoch):
                 np.argmax(val_pred.cpu().data.numpy(), axis=1) ==
                 data[1].numpy())
             val_loss += batch_loss.item()
+        print(
+            '[%03d/%03d] %2.2f sec(s) Train Acc: %3.6f Loss: %3.6f' %
+            (epoch + 1, num_epoch, time.time() - epoch_start_time, train_acc /
+             train_val_set.__len__(), train_loss / train_val_set.__len__()))
 
 # 保存模型参数
 torch.save(model.state_dict(), './task3/model.pth')

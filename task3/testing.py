@@ -38,3 +38,5 @@ with torch.no_grad():
         test_label = np.argmax(test_pred.cpu().data.numpy(), axis=1)
         for y in test_label:
             prediction.append(y)
+
+print(prediction)
